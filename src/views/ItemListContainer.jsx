@@ -1,11 +1,12 @@
-var connect =require('react-redux').connect;
-var ItemList = require('./ItemList.jsx');
+import { connect } from 'react-redux'
+import React, {PropTypes} from 'react'
+var ItemList = require('./ItemList.jsx')
 
-const mapStateToProps = function(state){
-  
+
+const mapStateToProps = (state)=>{
   return {
     items: state
   }
 }
 
-module.exports=connect(mapStateToProps)(ItemList);
+export default connect(mapStateToProps)(ItemList);

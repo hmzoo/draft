@@ -20672,8 +20672,6 @@ _reactDom2.default.render(_react2.default.createElement(
   'Hello, world!'
 ), document.getElementById('app'));
 
-console.log("OK");
-
 },{"react":177,"react-dom":26}]},{},[178])
 
 

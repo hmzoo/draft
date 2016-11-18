@@ -80,10 +80,10 @@ gulp.task('serve', ['build-client'], function() {
         server: dist
     });
 
-    gulp.watch(src + "/styles/*.less", ['less_draft']);
-    gulp.watch(src + "/*.html", ['html_draft']);
-    gulp.watch(src + "/assets/*.*", ['assets_draft']);
-    gulp.watch(src + "/*.pug", ['do_draft']);
+    gulp.watch(src + "/styles/*.less", ['less']);
+    gulp.watch(src + "/*.html", ['html']);
+    gulp.watch(src + "/assets/*.*", ['assets']);
+    gulp.watch(src + "/*.pug", ['pug']);
     gulp.watch([
         src + "/*.js", src + "/views/*.jsx"
     ], ['client']);

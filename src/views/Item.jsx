@@ -1,15 +1,14 @@
-var React = require('react');
+import React, {PropTypes} from 'react'
 
-module.exports = React.createClass({
+const Item = ({onClick, data}) => (
 
-    render: function() {
+    <div onClick={onClick}>{data}</div>
 
-        return (
+)
 
-            <div onClick={this.props.select}>{this.props.data}</div>
+Item.PropTypes = {
+    onClick: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired
+}
 
-        );
-
-    }
-
-});
+export default Item
