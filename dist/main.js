@@ -22318,15 +22318,13 @@ var App = require('./views/app.jsx');
 var Provider = require('react-redux');
 var store=require('./store.js');
 
-console.log(store.getState());
+var handleChange=function() {
 
-var userReducer = function(state = [], action) {
-    if (action.type === 'ADD_USER') {
-        var newState = state.concat([action.user]);
-        return newState;
-    }
-    return state;
+  console.log('store',store.getState());
+
 }
+store.subscribe(handleChange);
+
 
 store.dispatch({
     type: 'ADD_ITEM',
@@ -22336,74 +22334,112 @@ store.dispatch({
 });
 
 
+
+
 var mainApp = ReactDOM.render(React.createElement(Provider, {store: store}, React.createElement(App, null)), document.getElementById('app'));
 
-        store.dispatch({
-            type: 'ADD_ITEM',
-            item: {
-                name: 'Dan'
-            }
-        });
-
-},{"./store.js":218,"./views/app.jsx":219,"react":196,"react-dom":28,"react-redux":157}],218:[function(require,module,exports){
+},{"./store.js":218,"./views/app.jsx":222,"react":196,"react-dom":28,"react-redux":157}],218:[function(require,module,exports){
 var Redux = require('redux');
 
 var reducer = function(state = [], action) {
-    if (action.type === 'ADD_ITEM') {
-      console.log("add_item");
-        var newState = state.concat([action]);
-        return newState;
+    if (!action || !action.type) {
+        return state;
     }
-    return state;
+    switch(action.type) {
+
+        case 'ADD_ITEM':
+            var newState = state.concat([action.item]);
+            return newState;
+
+        default:
+            return state;
+
+    }
+
 }
 
-module.exports=Redux.createStore(reducer);
+module.exports = Redux.createStore(reducer);
 
 },{"redux":202}],219:[function(require,module,exports){
 var React = require('react');
-var connect =require('react-redux').connect;
-var App = React.createClass({displayName: "App",
 
-    getInitialState: function() {
-        return {infos: 'Hello',datas:[]};
-    },
-    setDatas:function(datas){
-      this.setState({datas:datas});
-    },
+module.exports = React.createClass({displayName: "exports",
+
     render: function() {
 
         return (
-            React.createElement("div", {id: "home"}, this.state.infos, 
-              React.createElement("h2", null, "ITEMS"), 
-              React.createElement("ul", null, 
-              this.props.items.map(function(t){
-                return (
-                        React.createElement("li", {key: t.name}, 
-                          t.name
-                        )
-                      )})
-              )
+
+            React.createElement("div", {onClick: this.props.select}, this.props.data)
+
+        );
+
+    }
+
+});
+
+},{"react":196}],220:[function(require,module,exports){
+var React = require('react');
+var Item =require('./Item.jsx');
+
+module.exports = React.createClass({displayName: "exports",
+
+
+
+    render: function() {
+
+
+        return (
+          React.createElement("div", null, 
+
+            
+              this.props.items.map(function(i){
+              return (
+                React.createElement(Item, {data: i.data, key: i.id, select: function(){return this.props.select(i.id)}})
+              );
+            },this)
+            
+
+          )
+          
+
+        );
+
+    }
+
+});
+
+},{"./Item.jsx":219,"react":196}],221:[function(require,module,exports){
+var connect =require('react-redux').connect;
+var ItemList = require('./ItemList.jsx');
+
+const mapStateToProps = function(state){
+  return {
+    items: state.items
+  }
+}
+
+module.exports=connect(mapStateToProps)(ItemList);
+
+},{"./ItemList.jsx":220,"react-redux":157}],222:[function(require,module,exports){
+var React = require('react');
+var ItemListContainer = require('./ItemListContainer.jsx');
+//var connect =require('react-redux').connect;
+var App = React.createClass({displayName: "App",
+
+    render: function() {
+
+        return (
+            React.createElement("div", null, 
+                React.createElement(ItemListContainer, null)
 
             )
         );
     }
 });
 
-var mapStateToProps=function (state) {
-  return {
-    items: state
-  };
-}
-/*
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(TodoActions, dispatch)
-  };
-}
-*/
-module.exports=connect(mapStateToProps)(App);
+module.exports = App;
 
-},{"react":196,"react-redux":157}]},{},[217])
+},{"./ItemListContainer.jsx":221,"react":196}]},{},[217])
 
 
 //# sourceMappingURL=main.js.map

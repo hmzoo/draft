@@ -1,12 +1,20 @@
 var Redux = require('redux');
 
 var reducer = function(state = [], action) {
-    if (action.type === 'ADD_ITEM') {
-      console.log("add_item");
-        var newState = state.concat([action]);
-        return newState;
+    if (!action || !action.type) {
+        return state;
     }
-    return state;
+    switch(action.type) {
+
+        case 'ADD_ITEM':
+            var newState = state.concat([action.item]);
+            return newState;
+
+        default:
+            return state;
+
+    }
+
 }
 
-module.exports=Redux.createStore(reducer);
+module.exports = Redux.createStore(reducer);
