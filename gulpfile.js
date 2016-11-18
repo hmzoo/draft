@@ -3,10 +3,10 @@ var browserSync = require('browser-sync').create();
 var less = require('gulp-less');
 var pug = require('gulp-pug');
 var browserify = require('browserify');
-var reactify = require('reactify');
+var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var rename = require("gulp-rename");
+
 var sourcemaps = require('gulp-sourcemaps');
 
 var src = './src';
@@ -31,14 +31,21 @@ gulp.task('less', function() {
 });
 
 gulp.task('client', function() {
-    return browserify({
-            entries: [src + '/main.js'],
-            transform: [reactify],
-            debug: true
-        }).bundle().pipe(source('main.js')).pipe(buffer()).pipe(sourcemaps.init({
-            loadMaps: true
-        }))
-        .pipe(sourcemaps.write('')).pipe(gulp.dest(dist)).pipe(browserSync.stream());
+
+  var bundler=browserify({
+          entries: src + '/main.js',
+          debug: true
+      });
+
+  bundler.transform(babelify, {presets: ["es2015", "react"]})
+  .bundle()
+  .on('error', function (err) { console.error(err); })
+  .pipe(source('main.js'))
+  .pipe(buffer())
+  .pipe(sourcemaps.init({loadMaps: true}))
+  .pipe(sourcemaps.write(''))
+  .pipe(gulp.dest(dist))
+  .pipe(browserSync.stream());
 });
 
 

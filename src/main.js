@@ -1,26 +1,9 @@
-var ReactDOM = require('react-dom');
-var React = require('react');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var App = require('./views/app.jsx');
-var Provider = require('react-redux');
-var store=require('./store.js');
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('app')
+);
 
-var handleChange=function() {
-
-  console.log('store',store.getState());
-
-}
-store.subscribe(handleChange);
-
-
-store.dispatch({
-    type: 'ADD_ITEM',
-    item: {
-        name: 'Dan'
-    }
-});
-
-
-
-
-var mainApp = ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('app'));
+console.log("OK");
