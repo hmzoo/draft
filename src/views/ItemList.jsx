@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-var Item = require('./Item.jsx');
+import Item from './Item'
 
 const ItemList = ({items, onItemClick}) => (
 
@@ -12,7 +12,7 @@ const ItemList = ({items, onItemClick}) => (
 
 ItemList.PropTypes = {
 
-    items: propTypes.arrayOf(PropTypes.shape({id: propTypes.string.isRequired, text: propTypes.string.isRequired})),
+    items: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.string.isRequired, text: PropTypes.string.isRequired})),
     onTodoClick: PropTypes.func.isRequired
 
 }

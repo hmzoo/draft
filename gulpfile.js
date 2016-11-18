@@ -33,14 +33,15 @@ gulp.task('less', function() {
 gulp.task('client', function() {
 
   var bundler=browserify({
-          entries: src + '/main.js',
+          entries: src + '/index.js',
+          extensions : ['.js', '.json', '.es6', '.jsx'],
           debug: true
       });
 
   bundler.transform(babelify, {presets: ["es2015", "react"]})
   .bundle()
   .on('error', function (err) { console.error(err); })
-  .pipe(source('main.js'))
+  .pipe(source('index.js'))
   .pipe(buffer())
   .pipe(sourcemaps.init({loadMaps: true}))
   .pipe(sourcemaps.write(''))

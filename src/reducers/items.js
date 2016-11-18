@@ -13,7 +13,7 @@ const item = (state = {}, action) => {
 
 const items = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'ADD_ITEM':
       return [
         ...state,
         item(undefined, action)
