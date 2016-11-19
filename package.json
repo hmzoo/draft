@@ -1,41 +1,18 @@
 {
   "name": "draft",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hmzoo/draft.git"
-  },
-  "author": "HMJ",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hmzoo/draft/issues"
-  },
-  "homepage": "https://github.com/hmzoo/draft#readme",
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babelify": "^7.3.0",
-    "browser-sync": "^2.18.1",
-    "browserify": "^13.1.1",
-    "gulp": "^3.9.1",
-    "gulp-less": "^3.3.0",
-    "gulp-pug": "^3.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.2.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "react-scripts": "0.7.0"
   },
   "dependencies": {
-    "cardinalcss": "^3.7.0",
-    "pouchdb": "^6.0.7",
     "react": "^15.4.0",
-    "react-dom": "^15.4.0",
-    "react-redux": "^4.4.6",
-    "redux": "^3.6.0"
+    "react-dom": "^15.4.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
