@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Counter from './Counter';
+import Counter from './counter/Counter';
+import Items from './items/Items';
 
 class App extends Component {
   render() {
@@ -10,11 +11,10 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-        <p className="App-intro">
-          ...
-        </p>
-        <button className='btn'>test</button>
+        <h2>Counter :</h2>
         <Counter />
+        <h2>Items :</h2>
+          <Items />
       </div>
     );
   }
