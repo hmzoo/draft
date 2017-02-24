@@ -8,7 +8,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 var dir_src = path.resolve(__dirname, 'src');
-var dir_build = path.resolve(__dirname, 'build');
+var dir_build = path.resolve(__dirname, '../public');
 
 module.exports = {
     entry: path.resolve(dir_src, 'main.js'),
@@ -32,20 +32,22 @@ module.exports = {
             },
             {
               test: /\.less$/,
-                //loader: "style-loader!css-loader!less-loader",
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader"),
+                loader: "style-loader!css-loader!less-loader",
+                //loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader"),
                 include: dir_src
             }
 
         ]
     },
     plugins: [
-        // Simply copies the files over
+        /* Simply copies the files over
         new CopyWebpackPlugin([
             { from: dir_src+'/index.html'},
             { from: dir_src+ '/assets'}
         ]),
+          */
         new ExtractTextPlugin("style.css"),
+
         // Avoid publishing files when compilation fails
         new webpack.NoErrorsPlugin()
     ],
