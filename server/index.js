@@ -18,6 +18,11 @@ let env = process.env.NODE_ENV || 'none';
 
 app.use(_express2.default.static(__dirname + '/../public'));
 
+app.use('/num', function (req, res, next) {
+    res.send('Hello');
+    next();
+});
+
 app.server.listen(port);
 console.log("Server started, listening on port: " + port + ", env: " + env);
 //# sourceMappingURL=index.js.map
