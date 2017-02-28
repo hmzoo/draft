@@ -71588,6 +71588,82 @@ function extend() {
 }
 
 },{}],428:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setProfilName = setProfilName;
+function setProfilName(name) {
+  return {
+    type: "SET_PROFIL_NAME",
+    profil: { name: name }
+  };
+}
+
+},{}],429:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _Profil = require('./Profil');
+
+var _Profil2 = _interopRequireDefault(_Profil);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+    _inherits(App, _Component);
+
+    function App() {
+        _classCallCheck(this, App);
+
+        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    }
+
+    _createClass(App, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_Profil2.default, { datas: this.props.profil })
+            );
+        }
+    }]);
+
+    return App;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        profil: state.profil
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
+
+},{"./Profil":430,"react":334,"react-redux":304}],430:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -71601,15 +71677,15 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (_ref) {
-    var num = _ref.num;
+    var datas = _ref.datas;
     return _react2.default.createElement(
         'div',
         null,
-        num
+        datas.name
     );
 };
 
-},{"react":334}],429:[function(require,module,exports){
+},{"react":334}],431:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -71628,24 +71704,75 @@ var _request = require('request');
 
 var _request2 = _interopRequireDefault(_request);
 
-var _Num = require('./components/Num.js');
+var _App = require('./components/App.js');
 
-var _Num2 = _interopRequireDefault(_Num);
+var _App2 = _interopRequireDefault(_App);
+
+var _reducers = require('./reducers');
+
+var _reducers2 = _interopRequireDefault(_reducers);
+
+var _profil = require('./actions/profil.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(reducers);
+var store = (0, _redux.createStore)(_reducers2.default);
 
-_request2.default.get('http://127.0.0.1:3000/num', function (error, response, body) {
+_request2.default.get('http://127.0.0.1:3000/profil', function (error, response, body) {
     console.log(error, response, body);
+    store.dispatch((0, _profil.setProfilName)(body));
 });
 
 _reactDom2.default.render(_react2.default.createElement(
     _reactRedux.Provider,
     { store: store },
-    _react2.default.createElement(_Num2.default, { num: 'ok' })
+    _react2.default.createElement(_App2.default, null)
 ), document.getElementById('app'));
 
-},{"./components/Num.js":428,"react":334,"react-dom":168,"react-redux":304,"redux":351,"request":353}]},{},[429])
+},{"./actions/profil.js":428,"./components/App.js":429,"./reducers":432,"react":334,"react-dom":168,"react-redux":304,"redux":351,"request":353}],432:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = require('redux');
+
+var _profil = require('./profil.js');
+
+var _profil2 = _interopRequireDefault(_profil);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var rootReducer = (0, _redux.combineReducers)({ profil: _profil2.default });
+
+exports.default = rootReducer;
+
+},{"./profil.js":433,"redux":351}],433:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+
+    switch (action.type) {
+        case 'SET_PROFIL_NAME':
+            return Object.assign({}, state, action.profil);
+
+        default:
+            return state;
+    }
+};
+
+var initialState = {
+    name: ''
+};
+
+},{}]},{},[431])
 
 //# sourceMappingURL=../public/bundle.js.map

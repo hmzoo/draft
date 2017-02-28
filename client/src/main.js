@@ -5,18 +5,21 @@ import {createStore} from 'redux';
 
 import request from 'request';
 
-import Num from './components/Num.js'
+import App from './components/App.js'
 
+import reducers from './reducers';
 let store = createStore(reducers);
 
+import {setProfilName} from './actions/profil.js';
 
 
-request.get('http://127.0.0.1:3000/num', (error, response, body) => {
+request.get('http://127.0.0.1:3000/profil', (error, response, body) => {
         console.log(error, response, body);
+        store.dispatch(setProfilName(body));
     }
 
 );
 
 ReactDOM.render(
     <Provider store={store}>
-    <Num num="ok"/></Provider>, document.getElementById('app'));
+    <App/></Provider>, document.getElementById('app'));

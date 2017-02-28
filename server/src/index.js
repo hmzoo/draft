@@ -12,8 +12,8 @@ let  env = process.env.NODE_ENV || 'none';
 
 app.use(express.static(__dirname + '/../public'));
 
-app.use('/num',function(req, res,next) {
-    res.send('Hello');
+app.use('/profil',function(req, res,next) {
+    res.json({ name : "oketo" });
     next();
 });
 
